@@ -16,14 +16,14 @@ onisuly/aria2-with-webui
 
 ```shell
 docker run -d --name aria2-webui \
--p 80:80 -p 6800:6800
--e PGID=1000
--e PUID=1000
--e SECRET=your_password
--e SECURE=true
--e CERTIFICATE=/server/path/to/your_cert
--e PRIVATEKEY=/server/path/to/your_key
--v /path/to/persist/data:/data
+-p 80:80 -p 6800:6800 \
+-e PGID=1000 \
+-e PUID=1000 \
+-e SECRET=your_password \
+-e SECURE=true \
+-e CERTIFICATE=/server/path/to/your_cert \
+-e PRIVATEKEY=/server/path/to/your_key \
+-v /path/to/persist/data:/data \
 onisuly/aria2-with-webui
 ```
 
