@@ -8,7 +8,7 @@ LABEL maintainer "onisuly <onisuly@gmail.com>"
 RUN mkdir -p /conf \
     && mkdir -p /data \
     && mkdir -p /preset-conf \
-    && apk add --no-cache bash aria2 darkhttpd
+    && apk add --no-cache tzdata bash aria2 darkhttpd s6
 
 RUN apk add --no-cache --virtual .install-deps curl unzip \
     && mkdir -p /aria2-ng \
