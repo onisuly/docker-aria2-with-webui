@@ -3,6 +3,7 @@ set -e
 
 PUID=${PUID:=0}
 PGID=${PGID:=0}
+SECURE=${SECURE:=false}
 
 if [ ! -f /conf/aria2.conf ]; then
     cp /preset-conf/aria2.conf /conf/aria2.conf
