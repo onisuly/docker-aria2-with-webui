@@ -1,6 +1,6 @@
 # Aria2, with integrated Aria2-NG Frontends
 
-[![Docker Build Status](https://img.shields.io/docker/build/onisuly/aria2-with-webui.svg)](https://github.com/onisuly/aria2-with-webui) [![Docker Automated build](https://img.shields.io/docker/automated/onisuly/aria2-with-webui.svg)](https://github.com/onisuly/aria2-with-webui) [![Docker Stars](https://img.shields.io/docker/stars/onisuly/aria2-with-webui.svg)](https://github.com/onisuly/aria2-with-webui) [![Docker Pulls](https://img.shields.io/docker/pulls/onisuly/aria2-with-webui.svg)](https://github.com/onisuly/aria2-with-webui)
+[![Docker Build Status](https://img.shields.io/docker/build/onisuly/aria2-with-webui.svg)](https://github.com/onisuly/docker-aria2-with-webui) [![Docker Automated build](https://img.shields.io/docker/automated/onisuly/aria2-with-webui.svg)](https://github.com/onisuly/docker-aria2-with-webui) [![Docker Stars](https://img.shields.io/docker/stars/onisuly/aria2-with-webui.svg)](https://github.com/onisuly/docker-aria2-with-webui) [![Docker Pulls](https://img.shields.io/docker/pulls/onisuly/aria2-with-webui.svg)](https://github.com/onisuly/docker-aria2-with-webui)
 
 This Dockerfile build an image for [aria2](https://github.com/aria2/aria2) with [AriaNg](https://github.com/mayswind/AriaNg) frontends.
 
@@ -29,6 +29,8 @@ onisuly/aria2-with-webui
 
 Which will make the Aria2 client accessible over HTTP from port 6800, with the WebUI being accessible from 80. If you define SECRET, this token can be used to communicate with the Aria2 daemon. Define SECURE as true and pass the cert and private key, to enable aria2 RPC transport encrypted by SSL/TLS.
 
+If you want to use your aria2 configuration file, you need to mount the /conf folder to a volume.
+
 ## Docker Compose
 ```yaml
 version: "3"
@@ -45,6 +47,8 @@ services:
       - PGID=${PGID:-1000}
       - PUID=${PUID:-1000}
       - SECRET=your_password
+      - SEEDRATIO=2
+      - SEEDTIME=0
       - SECURE=true
       - CERTIFICATE=/server/path/to/your_cert
       - PRIVATEKEY=/server/path/to/your_key

@@ -4,6 +4,8 @@ set -e
 PUID=${PUID:=0}
 PGID=${PGID:=0}
 SECURE=${SECURE:=false}
+SEEDRATIO=${SEEDRATIO:=0}
+SEEDTIME=${SEEDTIME:=0}
 
 if [ ! -f /conf/aria2.conf ]; then
     cp /preset-conf/aria2.conf /conf/aria2.conf
@@ -20,6 +22,8 @@ if [ ! -f /conf/aria2.conf ]; then
     fi
 
     echo "" >> /conf/aria2.conf
+    echo "seed-ratio=$SEEDRATIO" >> /conf/aria2.conf
+    echo "seed-time=$SEEDTIME" >> /conf/aria2.conf
     list=`wget -qO- https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt|awk NF|sed ":a;N;s/\n/,/g;ta"`
     if [ -z "`grep "bt-tracker" /conf/aria2.conf`" ]; then
         sed -i '$a bt-tracker='${list} /conf/aria2.conf
