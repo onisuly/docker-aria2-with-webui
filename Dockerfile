@@ -18,9 +18,6 @@ RUN apk add --no-cache --virtual .install-deps curl unzip \
     && rm /aria2-ng.zip \
     && apk del .install-deps
 
-RUN echo http://dl-2.alpinelinux.org/alpine/edge/community/ >> /etc/apk/repositories
-RUN apk --no-cache add shadow && usermod -aG www-data root
-
 COPY files/start.sh /preset-conf/start.sh
 COPY files/aria2.conf /preset-conf/aria2.conf
 
