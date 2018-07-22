@@ -23,6 +23,11 @@ COPY files/aria2.conf /preset-conf/aria2.conf
 
 RUN chmod +x /preset-conf/start.sh
 
+WORKDIR /
+
+VOLUME ["/data"]
+VOLUME ["/conf"]
+
 EXPOSE 6800
 EXPOSE 80
 
