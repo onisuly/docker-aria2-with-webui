@@ -23,6 +23,9 @@ COPY files/aria2.conf /preset-conf/aria2.conf
 
 RUN chmod +x /preset-conf/start.sh
 
+RUN groupadd -g 2000 www-data \
+    && useradd -m -u 2001 -g www-data root
+
 WORKDIR /
 
 VOLUME ["/data"]
