@@ -32,6 +32,8 @@ if [ ! -f /conf/aria2.conf ]; then
     fi
 fi
 
+chown $PUID:$PGID /conf || echo 'Failed to set owner of /conf, aria2 may not have permission to write /conf/aria2.session'
+
 touch /conf/aria2.session
 chown $PUID:$PGID /conf/aria2.session
 

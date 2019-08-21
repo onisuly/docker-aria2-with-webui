@@ -4,8 +4,6 @@ LABEL maintainer "onisuly <onisuly@gmail.com>"
 
 # For build image faster in China
 # RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
-ARG http_proxy
-ARG https_proxy
 
 RUN mkdir -p /conf \
     && mkdir -p /data \
@@ -34,3 +32,4 @@ EXPOSE 6800
 EXPOSE 80
 
 CMD ["/preset-conf/start.sh"]
+HEALTHCHECK --interval=5s --timeout=1s CMD ps | grep darkhttpd | grep -v grep || exit 1
