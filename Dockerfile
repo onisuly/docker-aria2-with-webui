@@ -4,8 +4,6 @@ LABEL maintainer "onisuly <onisuly@gmail.com>"
 
 # For build image faster in China
 # RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
-ARG http_proxy
-ARG https_proxy
 
 RUN mkdir -p /conf \
     && mkdir -p /data \
