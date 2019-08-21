@@ -32,3 +32,4 @@ EXPOSE 6800
 EXPOSE 80
 
 CMD ["/preset-conf/start.sh"]
+HEALTHCHECK --interval=5s --timeout=1s CMD ps | grep darkhttpd | grep -v grep || exit 1
