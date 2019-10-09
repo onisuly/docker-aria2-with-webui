@@ -1,6 +1,6 @@
 # Aria2, with integrated Aria2-NG Frontends
 
-[![Docker Build Status](https://img.shields.io/docker/build/onisuly/aria2-with-webui.svg)](https://github.com/onisuly/docker-aria2-with-webui) [![Docker Automated build](https://img.shields.io/docker/automated/onisuly/aria2-with-webui.svg)](https://github.com/onisuly/docker-aria2-with-webui) [![Docker Stars](https://img.shields.io/docker/stars/onisuly/aria2-with-webui.svg)](https://github.com/onisuly/docker-aria2-with-webui) [![Docker Pulls](https://img.shields.io/docker/pulls/onisuly/aria2-with-webui.svg)](https://github.com/onisuly/docker-aria2-with-webui)
+[![Docker Build Status](https://img.shields.io/docker/build/onisuly/aria2-with-webui.svg)](https://hub.docker.com/r/onisuly/aria2-with-webui) [![Docker Automated build](https://img.shields.io/docker/automated/onisuly/aria2-with-webui.svg)](https://hub.docker.com/r/onisuly/aria2-with-webui) [![Docker Stars](https://img.shields.io/docker/stars/onisuly/aria2-with-webui.svg)](https://hub.docker.com/r/onisuly/aria2-with-webui) [![Docker Pulls](https://img.shields.io/docker/pulls/onisuly/aria2-with-webui.svg)](https://hub.docker.com/r/onisuly/aria2-with-webui)
 
 This Dockerfile build an image for [aria2](https://github.com/aria2/aria2) with [AriaNg](https://github.com/mayswind/AriaNg) frontends.
 
