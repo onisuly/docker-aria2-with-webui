@@ -1,0 +1,27 @@
+name: Check update everyday
+
+on:
+  schedule:
+  - cron: "0 1 * * *"
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Check update
+      env:
+        token: ${{ secrets.DOCKERHUB_TOKEN }}
+      run: |
+        publish_date1=$(curl -sX GET "https://api.github.com/repos/mayswind/AriaNg/releases/latest" | awk '/published_at/{print $4;exit}' FS='[""]')
+        publish_date2=$(curl -sX GET "https://api.github.com/repos/aria2/aria2/releases/latest" | awk '/published_at/{print $4;exit}' FS='[""]')
+        build_date=$(curl -sX GET "https://hub.docker.com/v2/repositories/onisuly/aria2-with-webui/" | grep -oP '(?<="last_updated": ")[^"]*' | cut -d '.' -f1 | awk '{print $1"Z"}')
+        if [ $publish_date1 \> $build_date ] || [ $publish_date2 \> $build_date ]
+          then
+            curl -X POST https://hub.docker.com/api/build/v1/source/d474525c-ff51-40ba-9eb2-4acb0bcd6c9f/trigger/$token/call/
+          else
+            echo up to date
+        fi
