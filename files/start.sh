@@ -10,7 +10,10 @@ SEEDTIME=${SEEDTIME:=0}
 if [ ! -f /conf/aria2.conf ]; then
     cp /preset-conf/aria2.conf /conf/aria2.conf
     chown $PUID:$PGID /conf/aria2.conf
-    if [ $SECRET ]; then
+
+    if [ -z "$SECRET" ] && [ -n "$SECRET_FILE" ] && [ -r "$SECRET_FILE" ]; then
+        echo "rpc-secret=$(cat "${SECRET_FILE}")" >> /conf/aria2.conf
+    elif [ -n "$SECRET" ]; then
         echo "rpc-secret=${SECRET}" >> /conf/aria2.conf
     fi
 
