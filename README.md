@@ -27,7 +27,7 @@ docker run -d --name aria2-webui \
 onisuly/aria2-with-webui
 ```
 
-Which will make the Aria2 client accessible over HTTP from port 6800, with the WebUI being accessible from 80. If you define SECRET, this token can be used to communicate with the Aria2 daemon. Define SECURE as true and pass the cert and private key, to enable aria2 RPC transport encrypted by SSL/TLS.
+Which will make the Aria2 client accessible over HTTP from port 6800, with the WebUI being accessible from 80. If you define SECRET or [SECRET_FILE](https://docs.docker.com/compose/compose-file/compose-file-v3/#secrets "e.g. SECRET_FILE=./aria2-rpc-secret.txt"), this token can be used to communicate with the Aria2 daemon. Define SECURE as true and pass the cert and private key, to enable aria2 RPC transport encrypted by SSL/TLS.
 
 If you want to use your aria2 configuration file, you need to mount the /conf folder to a volume.
 
