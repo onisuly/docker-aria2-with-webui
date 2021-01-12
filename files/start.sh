@@ -24,6 +24,15 @@ if [ ! -f /conf/aria2.conf ]; then
         echo "rpc-private-key=$PRIVATEKEY" >> /conf/aria2.conf
     fi
 
+    if  [ -n "$FILE_ALLOCATION" ]; then
+        case "$FILE_ALLOCATION" in
+            none|prealloc|trunc|falloc)
+                echo "" >> /conf/aria2.conf
+                echo "file-allocation=$FILE_ALLOCATION" >> /conf/aria2.conf            
+            ;;
+        esac
+    fi
+        
     echo "" >> /conf/aria2.conf
     echo "seed-ratio=$SEEDRATIO" >> /conf/aria2.conf
     echo "seed-time=$SEEDTIME" >> /conf/aria2.conf
