@@ -36,12 +36,13 @@ if [ ! -f /conf/aria2.conf ]; then
     echo "" >> /conf/aria2.conf
     echo "seed-ratio=$SEEDRATIO" >> /conf/aria2.conf
     echo "seed-time=$SEEDTIME" >> /conf/aria2.conf
-    list=`wget -qO- https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt|awk NF|sed ":a;N;s/\n/,/g;ta"`
-    if [ -z "`grep "bt-tracker" /conf/aria2.conf`" ]; then
-        sed -i '$a bt-tracker='${list} /conf/aria2.conf
-    else
-        sed -i "s@bt-tracker.*@bt-tracker=$list@g" /conf/aria2.conf
-    fi
+fi
+
+list=`wget -qO- https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt|awk NF|sed ":a;N;s/\n/,/g;ta"`
+if [ -z "`grep "bt-tracker" /conf/aria2.conf`" ]; then
+    echo "bt-tracker=$list" >> /conf/aria2.conf
+else
+    sed -i "s@bt-tracker.*@bt-tracker=$list@g" /conf/aria2.conf
 fi
 
 chown $PUID:$PGID /conf || echo 'Failed to set owner of /conf, aria2 may not have permission to write /conf/aria2.session'
