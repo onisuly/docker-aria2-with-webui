@@ -24,15 +24,25 @@ if [ ! -f /conf/aria2.conf ]; then
         echo "rpc-private-key=$PRIVATEKEY" >> /conf/aria2.conf
     fi
 
+    if  [ -n "$FILE_ALLOCATION" ]; then
+        case "$FILE_ALLOCATION" in
+            none|prealloc|trunc|falloc)
+                echo "" >> /conf/aria2.conf
+                echo "file-allocation=$FILE_ALLOCATION" >> /conf/aria2.conf            
+            ;;
+        esac
+    fi
+        
     echo "" >> /conf/aria2.conf
     echo "seed-ratio=$SEEDRATIO" >> /conf/aria2.conf
     echo "seed-time=$SEEDTIME" >> /conf/aria2.conf
-    list=`wget -qO- https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt|awk NF|sed ":a;N;s/\n/,/g;ta"`
-    if [ -z "`grep "bt-tracker" /conf/aria2.conf`" ]; then
-        sed -i '$a bt-tracker='${list} /conf/aria2.conf
-    else
-        sed -i "s@bt-tracker.*@bt-tracker=$list@g" /conf/aria2.conf
-    fi
+fi
+
+list=`wget -qO- https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt|awk NF|sed ":a;N;s/\n/,/g;ta"`
+if [ -z "`grep "bt-tracker" /conf/aria2.conf`" ]; then
+    echo "bt-tracker=$list" >> /conf/aria2.conf
+else
+    sed -i "s@bt-tracker.*@bt-tracker=$list@g" /conf/aria2.conf
 fi
 
 chown $PUID:$PGID /conf || echo 'Failed to set owner of /conf, aria2 may not have permission to write /conf/aria2.session'
