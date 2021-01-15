@@ -8,7 +8,7 @@ LABEL maintainer "onisuly <onisuly@gmail.com>"
 RUN mkdir -p /conf \
     && mkdir -p /data \
     && mkdir -p /preset-conf \
-    && apk add --no-cache tzdata bash darkhttpd s6 ca-certificates gnutls expat sqlite-libs c-ares zlib nettle libssh2 libgcc libstdc++
+    && apk add --no-cache tzdata bash darkhttpd s6 ca-certificates gnutls expat sqlite-libs c-ares zlib nettle libssh2 libgcc libstdc++ curl
 
 FROM base AS build
 
@@ -39,8 +39,10 @@ COPY --from=build /aria2-ng /aria2-ng
 
 COPY files/start.sh /preset-conf/start.sh
 COPY files/aria2.conf /preset-conf/aria2.conf
+COPY files/bt-tracker /etc/periodic/daily/bt-tracker
 
 RUN chmod +x /preset-conf/start.sh
+RUN chmod +x /etc/periodic/daily/bt-tracker
 
 WORKDIR /
 

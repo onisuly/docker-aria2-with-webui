@@ -1,0 +1,24 @@
+#!/bin/sh
+
+url="https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best.txt"
+
+wget --spider "$url" 2>/dev/null
+test $? -eq 0 || exit 1
+
+list="$(wget -qO- "$url" | awk NF | sed ':a;N;s/\n/,/g;ta')"
+
+uuid="$(od -x /dev/urandom | head -1 | awk '{OFS="-" ; print $2$3,$4,$5,$6,$7$8$9}')"
+
+if [ -z "$SECRET" ] && [ -n "$SECRET_FILE" ] && [ -r "$SECRET_FILE" ]; then
+    secret="$(cat "$SECRET_FILE")"
+elif [ -n "$SECRET" ]; then
+    secret="$SECRET"
+fi
+
+json='{"jsonrpc":"2.0","id":"'$uuid'","method":"aria2.changeGlobalOption","params":["token:'$secret'",{"bt-tracker":"'$list'"}]}'
+
+if [ "$SECURE" = "true" ]; then
+    s=s
+fi
+
+curl --silent --insecure --header "Content-type: application/json" --data "$json" "http$s://localhost:6800/jsonrpc"
