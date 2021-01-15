@@ -59,6 +59,6 @@ chown $PUID:$PGID /conf/aria2.session
 touch /logs.log
 chown $PUID:$PGID /logs.log
 
-darkhttpd /aria2-ng --port 80 $ipv6 &
+s6-setuidgid $PUID:$PGID darkhttpd /aria2-ng --port 80 --daemon --no-listing --no-server-id $ipv6
 
 exec s6-setuidgid $PUID:$PGID aria2c --conf-path=/conf/aria2.conf --log=/logs.log
