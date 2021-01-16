@@ -20,7 +20,6 @@ if [ ! -f $conf ]; then
     fi
 
     if [ "$SECURE" = "true" ]; then
-        echo "" >> $conf
         echo "rpc-secure=true" >> $conf
         echo "rpc-certificate=$CERTIFICATE" >> $conf
         echo "rpc-private-key=$PRIVATEKEY" >> $conf
@@ -47,11 +46,17 @@ fi
 
 chown $PUID:$PGID /conf || echo 'Failed to set owner of /conf, aria2 may not have permission to write /conf/aria2.session'
 
-touch /conf/aria2.session
-chown $PUID:$PGID /conf/aria2.session
+touch \
+    /conf/aria2.session \
+    /conf/.netrc \
+    /logs.log
 
-touch /logs.log
-chown $PUID:$PGID /logs.log
+chown $PUID:$PGID \
+    /conf/aria2.session \
+    /conf/.netrc \
+    /logs.log
+
+chmod 600 /conf/.netrc
 
 crond -l2 -b
 
