@@ -49,12 +49,12 @@ chown $PUID:$PGID /conf || echo 'Failed to set owner of /conf, aria2 may not hav
 touch \
     /conf/aria2.session \
     /conf/.netrc \
-    /logs.log
+    /conf/aria2.log
 
 chown $PUID:$PGID \
     /conf/aria2.session \
     /conf/.netrc \
-    /logs.log
+    /conf/aria2.log
 
 chmod 600 /conf/.netrc
 
@@ -64,4 +64,4 @@ crond -l2 -b
 
 s6-setuidgid $PUID:$PGID darkhttpd /aria2-ng --port 80 --daemon --no-listing --no-server-id $ipv6
 
-exec s6-setuidgid $PUID:$PGID aria2c --conf-path=$conf --log=/logs.log
+exec s6-setuidgid $PUID:$PGID aria2c --conf-path=$conf --log=/conf/aria2.log >/dev/null 2>&1
