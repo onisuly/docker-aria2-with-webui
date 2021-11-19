@@ -13,8 +13,8 @@ jobs:
       env:
         token: ${{ secrets.DOCKERHUB_TOKEN }}
       run: |
-        publish_date1=$(curl -sX GET "https://api.github.com/repos/mayswind/AriaNg/releases/latest" | awk '/published_at/{print $4;exit}' FS='[""]')
-        publish_date2=$(curl -sX GET "https://api.github.com/repos/aria2/aria2/releases/latest" | awk '/published_at/{print $4;exit}' FS='[""]')
+        publish_date1=$(curl -sX GET "https://api.github.com/repos/mayswind/AriaNg/releases/latest" | awk '/published_at/{print $4}' FS='[""]')
+        publish_date2=$(curl -sX GET "https://api.github.com/repos/aria2/aria2/releases/latest" | awk '/published_at/{print $4}' FS='[""]')
         build_date=$(curl -sX GET "https://hub.docker.com/v2/repositories/onisuly/aria2-with-webui/" | grep -oP '(?<="last_updated": ")[^"]*' | cut -d '.' -f1 | awk '{print $1"Z"}')
         if [ $publish_date1 \> $build_date ] || [ $publish_date2 \> $build_date ]
           then
